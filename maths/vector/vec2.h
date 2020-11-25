@@ -2,7 +2,7 @@
 
 #include <ostream>
 
-#include <math/vector/vec.h>
+#include "vec.h"
 
 namespace math
 {
