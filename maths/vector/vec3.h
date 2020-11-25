@@ -4,7 +4,7 @@
 #include <cmath>
 
 #include "vec.h"
-#include "vec2.h>"
+#include "vec2.h"
 
 namespace math
 {
