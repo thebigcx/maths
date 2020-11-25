@@ -2,8 +2,8 @@
 
 #include <ostream>
 
-#include <math/vector/vec.h>
-#include <math/vector/vec3.h>
+#include "vec.h"
+#include "vec3.h"
 
 namespace math
 {
