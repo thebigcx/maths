@@ -3,10 +3,10 @@
 #include <cmath>
 #include <iostream>
 
-#include <math/vector/vec3.h>
-#include <math/vector/vec4.h>
-#include <math/math.h>
-#include <math/matrix/mat.h>
+#include "../vector/vec3.h"
+#include "../vector/vec4.h"
+#include "../math.h"
+#include "mat.h"
 
 namespace math
 {
