@@ -3,8 +3,8 @@
 #include <ostream>
 #include <cmath>
 
-#include <math/vector/vec.h>
-#include <math/vector/vec2.h>
+#include "vec.h"
+#include "vec2.h>"
 
 namespace math
 {
