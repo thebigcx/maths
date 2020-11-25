@@ -1,6 +1,6 @@
 #pragma once
 
-#include <math/matrix/mat.h>
+#include "mat.h"
 
 namespace math
 {
