@@ -24,6 +24,15 @@ public:
         }
     }
 
+    mat<3, 3, T>(const mat<4, 4, T>& matrix)
+    {
+        for (int x = 0; x < 3; x++)
+        for (int y = 0; y < 3; y++)
+        {
+            m_cells[x][y] = matrix[x][y];
+        }
+    }
+
     mat<3, 3, T> operator*(const mat<3, 3, T>& m2)
     {
         mat<3, 3, T> result;
@@ -50,6 +59,16 @@ public:
     vec<3, T> getRow(int i) const
     {
         return vec<3, T>(m_cells[0][i], m_cells[1][i], m_cells[2][i]);
+    }
+
+    column_type& operator[](int index)
+    {
+        return m_cells[index];
+    }
+
+    column_type operator[](int index) const
+    {
+        return m_cells[index];
     }
 
 private:

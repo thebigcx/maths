@@ -31,6 +31,17 @@ public:
         }
     }
 
+    mat<4, 4, T>(const mat<3, 3, T>& matrix)
+    {
+        for (int x = 0; x < 3; x++)
+        for (int y = 0; y < 3; y++)
+        {
+            m_cells[x][y] = matrix[x][y];
+        }
+
+        m_cells[3][3] = 1.f;
+    }
+
     mat<4, 4, T> operator*(const mat<4, 4, T>& m2)
     {
         mat<4, 4, T> result;
