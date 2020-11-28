@@ -128,37 +128,6 @@ public:
         return !operator==(val);
     }
 
-    float mag()
-    {
-        return sqrt(x * x, y * y);
-    }
-
-    void normalize()
-    {
-        vec<2, T>::normalize(*this);
-    }
-
-    float dot(const vec<2, T>& val)
-    {
-        return vec<2, T>::dot(*this, val);
-    }
-
-    static vec<2, T> normalize(const vec<2, T>& val)
-    {
-        float magnitude = 1.f / mag(); // Divide once (save CPU cycles)
-        return vec<2, T>(val.x * magnitude, val.y * magnitude);
-    }
-
-    static float dot(const vec<2, T>& vec1, const vec<2, T>& vec2)
-    {
-        return vec1.x * vec2.x + vec1.y * vec2.y;
-    }
-
-    std::string str() const
-    {
-        return "(" + std::to_string(x) + ", " + std::to_string(y) + ")";
-    }
-
     union { T x, r, s; };
     union { T y, g, t; };
 };

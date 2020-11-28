@@ -154,11 +154,6 @@ public:
         }
     }
 
-    std::string str() const
-    {
-        return "(" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ", " + std::to_string(w) + ")";
-    }
-
     union { T x, r, s; };
     union { T y, g, t; };
     union { T z, b, p; };

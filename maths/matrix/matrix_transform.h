@@ -1,21 +1,23 @@
 #pragma once
 
-#include "mat4.h"
+#include "mat4x4.h"
 
 namespace math
 {
 
-template<typename T>
-mat<4, 4, T> identity()
+template<int width, int height, typename T>
+mat<width, height, T> identity()
 {
-    mat<4, 4, T> mat;
+    mat<width, height, T> matrix;
         
-    for (int i = 0 ; i < 4 ; i++)
+    for (int x = 0; x < width; x++)
+    for (int y = 0; y < height; y++)
     {
-        mat[i][i] = static_cast<T>(1);
+        if (x == y)
+            matrix[x][y] = static_cast<T>(1);
     }
 
-    return mat;
+    return matrix;
 }
 
 template<typename T>
@@ -47,8 +49,8 @@ mat<4, 4, T> rotate(const mat<4, 4, T>& matrix, T angle, const vec<3, T>& axis)
 {
     mat<4, 4, T> result = matrix;
 
-    T c = cos(angle);
-    T s = sin(angle);
+    T c = math::cos(angle);
+    T s = math::sin(angle);
     T omc = 1.f - c;
 
     T x = axis.x;
@@ -91,8 +93,8 @@ mat<4, 4, T> perspective(T fovy, T aspect, T zNear, T zFar)
 {
     mat<4, 4, T> result;
 
-    result[0][0] = static_cast<T>(1) / (aspect * std::tan(fovy / static_cast<T>(2)));
-    result[1][1] = static_cast<T>(1) / std::tan(fovy / static_cast<T>(2));
+    result[0][0] = static_cast<T>(1) / (aspect * math::tan(fovy / static_cast<T>(2)));
+    result[1][1] = static_cast<T>(1) / math::tan(fovy / static_cast<T>(2));
     result[2][2] = -(zFar + zNear) / (zFar - zNear);
     result[2][3] = -static_cast<T>(1);
     result[3][2] = -(static_cast<T>(2) * zFar * zNear) / (zFar - zNear);
@@ -105,9 +107,9 @@ mat<4, 4, T> lookAt(const vec<3, T>& pos, const vec<3, T>& object, const vec<3, 
 {
     mat<4, 4, T> result(1.f);
 
-    vec<3, T> f = vec<3, T>::normalize(object - pos);
-    vec<3, T> s = vec<3, T>::normalize(vec<3, T>::cross(f, up));
-    vec<3, T> u = vec<3, T>::cross(s, f);
+    vec<3, T> f = math::normalize(object - pos);
+    vec<3, T> s = math::normalize(math::cross(f, up));
+    vec<3, T> u = math::cross(s, f);
 
     result[0][0] = s.x;
     result[1][0] = s.y;
@@ -121,9 +123,44 @@ mat<4, 4, T> lookAt(const vec<3, T>& pos, const vec<3, T>& object, const vec<3, 
     result[1][2] = -f.y;
     result[2][2] = -f.z;
 
-    result[3][0] = -vec<3, T>::dot(s, pos);
-    result[3][1] = -vec<3, T>::dot(u, pos);
-    result[3][2] =  vec<3, T>::dot(f, pos);
+    result[3][0] = -math::dot(s, pos);
+    result[3][1] = -math::dot(u, pos);
+    result[3][2] =  math::dot(f, pos);
+
+    return result;
+}
+
+template<typename T>
+static mat<3, 3, T> translate(const mat<3, 3, T>& val, const vec<2, T>& vector)
+{
+    mat<3, 3, T> result = val;
+
+    result[2][0] += vector.x * result[0][0];
+    result[2][1] += vector.y * result[1][1];
+
+    return result;
+}
+
+template<typename T>
+static mat<3, 3, T> rotate(const mat<3, 3, T>& val, T angle)
+{
+    mat<3, 3, T> result = val;
+
+    result[0][0] *= math::cos(angle);
+    result[1][0] *= -math::sin(angle);
+    result[0][1] *= math::sin(angle);
+    result[1][1] *= math::cos(angle);
+
+    return result;
+}
+
+template<typename T>
+static mat<3, 3, T> scale(const mat<3, 3, T>& matrix, const vec<2, T>& scalar)
+{
+    mat<3, 3, T> result = matrix;
+
+    result[0] *= vec<3, T>(scalar, 1);
+    result[1] *= vec<3, T>(scalar, 1);
 
     return result;
 }

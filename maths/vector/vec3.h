@@ -33,38 +33,6 @@ public:
     {
     }
 
-    void normalize()
-    {
-        *this = vec<3, T>::normalize(*this);
-    }
-
-    vec<3, T> cross(const vec<3, T>& other)
-    {
-        return vec<3, T>::cross(*this, other);
-        
-    }
-
-    float mag() const
-    {
-        return std::sqrt(x * x + y * y + z * z);
-    }
-
-    static vec<3, T> normalize(const vec<3, T>& val)
-    {
-        float magnitude = 1.f / val.mag();
-        return vec<3, T>(val.x * magnitude, val.y * magnitude, val.z * magnitude);
-    }
-
-    static vec<3, T> cross(const vec<3, T>& first, const vec<3, T>& second)
-    {
-        return vec<3, T>(first.y * second.z - first.z * second.y, first.z * second.x - first.x * second.z, first.x * second.y - first.y * second.x);
-    }
-
-    static float dot(const vec<3, T>& first, const vec<3, T>& second)
-    {
-        return first.x * second.x + first.y * second.y + first.z * second.z;
-    }
-
     vec<3, T> operator+(const vec<3, T>& val) const
     {
         return vec<3, T>(x + val.x, y + val.y, z + val.z);
@@ -191,11 +159,6 @@ public:
             case 2: return z;
             default: return x;
         }
-    }
-
-    std::string str() const
-    {
-        return "(" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ")";
     }
 
     union { T x, r, s; };

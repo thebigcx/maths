@@ -15,63 +15,30 @@ template<typename T>
 class mat<4, 4, T>
 {
 private:
-    typedef vec<4, T> ColumnType;
+    typedef vec<4, T> column_type;
 
 public:
     mat<4, 4, T>()
     {
-        clear();
+        
     }
 
     mat<4, 4, T>(float val)
     {
-        clear();
         for (int i = 0 ; i < 4 ; i++)
         {
             m_cells[i][i] = val;
         }
     }
 
-    void clear()
-    {
-        for (int x = 0 ; x < 4 ; x++)
-        for (int y = 0 ; y < 4 ; y++)
-        {
-            m_cells[x][y] = static_cast<T>(0);
-        }
-    }
-
-    std::string str()
-    {
-        std::string s;
-        for (int x = 0 ; x < 4 ; x++)
-        {
-            for (int y = 0 ; y < 4 ; y++)
-            {
-                s.append(std::to_string(m_cells[y][x]));
-                s.append(", ");
-            }
-            s.append("\n");
-        }
-
-        return s;
-    }
-
     mat<4, 4, T> operator*(const mat<4, 4, T>& m2)
     {
         mat<4, 4, T> result;
 
-        // Multiply them together
-        vec<4, T> dstCol1 = (*this)[0] * m2[0].x + (*this)[1] * m2[0].y + (*this)[2] * m2[0].z + (*this)[3] * m2[0].w;
-        vec<4, T> dstCol2 = (*this)[0] * m2[1].x + (*this)[1] * m2[1].y + (*this)[2] * m2[1].z + (*this)[3] * m2[1].w;
-        vec<4, T> dstCol3 = (*this)[0] * m2[2].x + (*this)[1] * m2[2].y + (*this)[2] * m2[2].z + (*this)[3] * m2[2].w;
-        vec<4, T> dstCol4 = (*this)[0] * m2[3].x + (*this)[1] * m2[3].y + (*this)[2] * m2[3].z + (*this)[3] * m2[3].w;
-
-        // Add the columns to result
-        result[0] = dstCol1;
-        result[1] = dstCol2;
-        result[2] = dstCol3;
-        result[3] = dstCol4;
+        result[0] = (*this)[0] * m2[0].x + (*this)[1] * m2[0].y + (*this)[2] * m2[0].z + (*this)[3] * m2[0].w;
+        result[1] = (*this)[0] * m2[1].x + (*this)[1] * m2[1].y + (*this)[2] * m2[1].z + (*this)[3] * m2[1].w;
+        result[2] = (*this)[0] * m2[2].x + (*this)[1] * m2[2].y + (*this)[2] * m2[2].z + (*this)[3] * m2[2].w;
+        result[3] = (*this)[0] * m2[3].x + (*this)[1] * m2[3].y + (*this)[2] * m2[3].z + (*this)[3] * m2[3].w;
 
         return result;
     }
@@ -93,18 +60,18 @@ public:
         return vec<4, T>(m_cells[0][i], m_cells[1][i], m_cells[2][i], m_cells[3][i]);
     }
 
-    ColumnType& operator[](int index)
+    column_type& operator[](int index)
     {
         return m_cells[index];
     }
 
-    ColumnType operator[](int index) const
+    column_type operator[](int index) const
     {
         return m_cells[index];
     }
 
 private:
-    ColumnType m_cells[4];
+    column_type m_cells[4];
 
     friend const T* buffer<>(const mat<4, 4, T>& mat);
 };
