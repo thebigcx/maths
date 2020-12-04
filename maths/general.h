@@ -45,4 +45,4 @@ static constexpr double abs(double val) noexcept
     return std::abs(val);
 }
 
-}; // namespace math
+} // namespace math

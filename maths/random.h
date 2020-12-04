@@ -20,5 +20,5 @@ static double generate(int min, int max)
     return min + f * (max - min);
 }
 
-}; // namespace random
-}; // namespace math
+} // namespace random
+} // namespace math

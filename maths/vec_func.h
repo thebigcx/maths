@@ -76,4 +76,4 @@ static std::string str(const vec<4, T>& val)
     return "(" + std::to_string(val.x) + ", " + std::to_string(val.y) + ", " + std::to_string(val.z) + ", " + std::to_string(val.w) + ")";
 }
 
-}; // namespace math
+} // namespace math

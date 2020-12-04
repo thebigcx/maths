@@ -24,4 +24,4 @@ static std::string str(const mat<width, height, T>& matrix)
     return s;
 }
 
-};
+}

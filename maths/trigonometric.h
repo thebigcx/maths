@@ -75,4 +75,4 @@ static constexpr double cot(double x)
     return 1.f / std::cos(x);
 }
 
-}; // namespace math
+} // namespace math

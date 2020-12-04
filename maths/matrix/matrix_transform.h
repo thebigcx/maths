@@ -165,4 +165,4 @@ static mat<3, 3, T> scale(const mat<3, 3, T>& matrix, const vec<2, T>& scalar)
     return result;
 }
 
-};
+}
