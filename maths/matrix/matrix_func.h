@@ -11,9 +11,9 @@ template<int width, int height, typename T>
 static std::string str(const mat<width, height, T>& matrix)
 {
     std::string s;
-    for (int x = 0 ; x < width ; x++)
+    for (unsigned int x = 0 ; x < width ; x++)
     {
-        for (int y = 0 ; y < height ; y++)
+        for (unsigned int y = 0 ; y < height ; y++)
         {
             s.append(std::to_string(m_cells[y][x]));
             s.append(", ");

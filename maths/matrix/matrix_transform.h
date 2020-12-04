@@ -10,8 +10,8 @@ mat<width, height, T> identity()
 {
     mat<width, height, T> matrix;
         
-    for (int x = 0; x < width; x++)
-    for (int y = 0; y < height; y++)
+    for (unsigned int x = 0; x < width; x++)
+    for (unsigned int y = 0; y < height; y++)
     {
         if (x == y)
             matrix[x][y] = static_cast<T>(1);

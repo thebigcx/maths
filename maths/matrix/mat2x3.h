@@ -18,7 +18,7 @@ public:
 
     mat<2, 3, T>(float val)
     {
-        for (int i = 0 ; i < 2 ; i++)
+        for (unsigned int i = 0 ; i < 2 ; i++)
         {
             m_cells[i][i] = val;
         }

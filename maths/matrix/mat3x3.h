@@ -18,7 +18,7 @@ public:
 
     mat<3, 3, T>(float val)
     {
-        for (int i = 0 ; i < 3 ; i++)
+        for (unsigned int i = 0 ; i < 3 ; i++)
         {
             m_cells[i][i] = val;
         }
@@ -26,8 +26,8 @@ public:
 
     mat<3, 3, T>(const mat<4, 4, T>& matrix)
     {
-        for (int x = 0; x < 3; x++)
-        for (int y = 0; y < 3; y++)
+        for (unsigned int x = 0; x < 3; x++)
+        for (unsigned int y = 0; y < 3; y++)
         {
             m_cells[x][y] = matrix[x][y];
         }
