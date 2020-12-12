@@ -32,6 +32,11 @@ public:
         : x(vec.x), y(vec.y), z(z)
     {
     }
+    
+    vec<3, T>(const vec<4, T>& vec)
+        : x(vec.x), y(vec.y), z(vec.z)
+    {
+    }
 
     vec<3, T> operator+(const vec<3, T>& val) const
     {

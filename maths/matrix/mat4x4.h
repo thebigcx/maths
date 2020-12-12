@@ -42,7 +42,7 @@ public:
         m_cells[3][3] = 1.f;
     }
 
-    mat<4, 4, T> operator*(const mat<4, 4, T>& m2)
+    mat<4, 4, T> operator*(const mat<4, 4, T>& m2) const
     {
         mat<4, 4, T> result;
 
@@ -54,7 +54,7 @@ public:
         return result;
     }
 
-    vec<4, T> operator*(const vec<4, T>& val)
+    vec<4, T> operator*(const vec<4, T>& val) const
     {
         vec<4, T> result;
 
@@ -62,6 +62,17 @@ public:
         result.y = getRow(1).x * val.x + getRow(1).y * val.y + getRow(1).z * val.z + getRow(1).w * val.w;
         result.z = getRow(2).x * val.x + getRow(2).y * val.y + getRow(2).z * val.z + getRow(2).w * val.w;
         result.w = getRow(3).x * val.x + getRow(3).y * val.y + getRow(3).z * val.z + getRow(3).w * val.w;
+
+        return result;
+    }
+
+    vec<3, T> operator*(const vec<3, T>& val) const
+    {
+        vec<3, T> result;
+
+        result.x = getRow(0).x * val.x + getRow(0).y * val.y + getRow(0).z * val.z;
+        result.y = getRow(1).x * val.x + getRow(1).y * val.y + getRow(1).z * val.z;
+        result.z = getRow(2).x * val.x + getRow(2).y * val.y + getRow(2).z * val.z;
 
         return result;
     }
