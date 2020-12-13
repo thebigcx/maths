@@ -58,6 +58,11 @@ public:
         return vec<3, T>(x - num, y - num, z - num);
     }
 
+    vec<3, T> operator-()
+    {
+        return vec<3, T>(-x, -y, -z);
+    }
+
     vec<3, T> operator*(const vec<3, T>& val) const
     {
         return vec<3, T>(x * val.x, y * val.y, z * val.z);
