@@ -15,7 +15,7 @@ static std::string str(const mat<width, height, T>& matrix)
     {
         for (unsigned int y = 0 ; y < height ; y++)
         {
-            s.append(std::to_string(m_cells[y][x]));
+            s.append(std::to_string(matrix[y][x]));
             s.append(", ");
         }
         s.append("\n");
