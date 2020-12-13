@@ -23,23 +23,20 @@ public:
         
     }
 
-    mat<4, 4, T>(float val)
+    mat<4, 4, T>(const T& s)
+        : m_cells{column_type(s, 0, 0, 0), column_type(0, s, 0, 0), column_type(0, 0, s, 0), column_type(0, 0, 0, s)}
     {
-        for (unsigned int i = 0 ; i < 4 ; i++)
-        {
-            m_cells[i][i] = val;
-        }
     }
 
-    mat<4, 4, T>(const mat<3, 3, T>& matrix)
+    mat<4, 4, T>(const mat<3, 3, T>& m)
+        : m_cells{column_type(m[0], 0), column_type(m[1], 0), column_type(m[2], 0), column_type(0, 0, 0, 1)}
     {
-        for (unsigned int x = 0; x < 3; x++)
-        for (unsigned int y = 0; y < 3; y++)
-        {
-            m_cells[x][y] = matrix[x][y];
-        }
+    }
 
-        m_cells[3][3] = 1.f;
+    mat<4, 4, T>(const column_type& v0, const column_type& v1, const column_type& v2, const column_type& v3)
+        : m_cells{column_type(v0), column_type(v1), column_type(v2), column_type(v3)}
+    {
+        
     }
 
     mat<4, 4, T> operator*(const mat<4, 4, T>& m2) const
@@ -75,6 +72,18 @@ public:
         result.z = getRow(2).x * val.x + getRow(2).y * val.y + getRow(2).z * val.z;
 
         return result;
+    }
+
+    mat<4, 4, T> operator*(const T& s) const
+    {
+        mat<4, 4, T> m = *this;
+
+        m[0] *= s;
+        m[1] *= s;
+        m[2] *= s;
+        m[3] *= s;
+
+        return m;
     }
 
     vec<4, T> getRow(int i) const
