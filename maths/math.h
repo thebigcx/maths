@@ -4,6 +4,7 @@
 #include "trigonometric.h"
 #include "random.h"
 #include "vec_func.h"
+#include "rect.h"
 
 #include "vector/vec2.h"
 #include "vector/vec3.h"
