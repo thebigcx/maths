@@ -3,6 +3,7 @@
 #include "general.h"
 #include "trigonometric.h"
 #include "random.h"
+#include "buffer.h"
 
 #include "quaternion/qua.h"
 #include "quaternion/qua_func.h"

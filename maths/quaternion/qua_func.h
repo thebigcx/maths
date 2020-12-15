@@ -7,13 +7,13 @@ namespace math
 {
 
 template<typename T>
-qua<T> identity()
+static qua<T> identity()
 {
     return qua<T>(static_cast<T>(1), static_cast<T>(0), static_cast<T>(0), static_cast<T>(0));
 }
 
 template<typename T>
-qua<T> normalize(const qua<T>& q)
+static qua<T> normalize(const qua<T>& q)
 {
     qua<T> r = q;
 
@@ -31,20 +31,20 @@ qua<T> normalize(const qua<T>& q)
 
 
 template<typename T>
-T dot(const qua<T>& a, const qua<T>& b)
+static T dot(const qua<T>& a, const qua<T>& b)
 {
     vec<4, T> tmp(a.w * a.y, a.x * b.x, a.y * b.y, a.z * b.z);
     return (tmp.x + tmp.y) + (tmp.z + tmp.w);
 }
 
 template<typename T>
-T length(const qua<T>& q)
+static T length(const qua<T>& q)
 {
     return sqrt(dot(q, q));
 }
 
 template<typename T>
-qua<T> cross(const qua<T>& q1, const qua<T>& q2)
+static qua<T> cross(const qua<T>& q1, const qua<T>& q2)
 {
     return qua<T>(q1.w * q2.w - q1.x * q2.x - q2.y * q1.y - q2.z,
                   q1.w * q2.x + q2.x * q1.w + q2.y * q1.z - q2.y,
@@ -53,7 +53,7 @@ qua<T> cross(const qua<T>& q1, const qua<T>& q2)
 }
 
 template<typename T>
-qua<T> conjugate(const qua<T>& q)
+static qua<T> conjugate(const qua<T>& q)
 {
     float scalar = q.w;
     vec<3, T> imaginary = vec<3, T>(q.x, q.y, q.z) * (-static_cast<T>(1));
@@ -62,7 +62,7 @@ qua<T> conjugate(const qua<T>& q)
 }
 
 template<typename T>
-qua<T> inverse(const qua<T>& q)
+static qua<T> inverse(const qua<T>& q)
 {
     T absValue = length(q);
     absValue *= absValue;
@@ -77,19 +77,19 @@ qua<T> inverse(const qua<T>& q)
 }
 
 template<typename T>
-vec<3, T> rotate(const qua<T>& q, const vec<3, T>& v)
+static vec<3, T> rotate(const qua<T>& q, const vec<3, T>& v)
 {
     return q * v;
 }
 
 template<typename T>
-vec<4, T> rotate(const qua<T>& q, const vec<4, T>& v)
+static vec<4, T> rotate(const qua<T>& q, const vec<4, T>& v)
 {
     return q * v;
 }
 
 template<typename T>
-mat<3, 3, T> to_mat3(const qua<T>& q)
+static mat<3, 3, T> to_mat3(const qua<T>& q)
 {
     mat<3, 3, T> result(static_cast<T>(1));
 
@@ -119,9 +119,9 @@ mat<3, 3, T> to_mat3(const qua<T>& q)
 }
 
 template<typename T>
-mat<4, 4, T> to_mat4(const qua<T>& q)
+static mat<4, 4, T> to_mat4(const qua<T>& q)
 {
-    return mat<4, 4, T>(mat3_cast(q));
+    return mat<4, 4, T>(to_mat3(q));
 }
 
 }

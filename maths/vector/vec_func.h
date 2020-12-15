@@ -2,8 +2,8 @@
 
 #include <string>
 
-#include "vector/vec.h"
-#include "general.h"
+#include "vec.h"
+#include "../general.h"
 
 namespace math
 {
@@ -71,7 +71,7 @@ static std::string str(const vec<3, T>& val)
 // ------------------------------vec4-------------------------------
 
 template<typename T>
-static std::string str(const vec<4, T>& val)
+static std::string to_string(const vec<4, T>& val)
 {
     return "(" + std::to_string(val.x) + ", " + std::to_string(val.y) + ", " + std::to_string(val.z) + ", " + std::to_string(val.w) + ")";
 }

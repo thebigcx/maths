@@ -54,8 +54,6 @@ public:
 
 private:
     column_type m_cells[2];
-
-    friend const T* buffer<>(const mat<2, 2, T>& mat);
 };
 
 typedef mat<2, 2, float>        mat2;

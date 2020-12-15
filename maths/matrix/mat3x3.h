@@ -61,20 +61,18 @@ public:
         return vec<3, T>(m_cells[0][i], m_cells[1][i], m_cells[2][i]);
     }
 
-    column_type& operator[](int index)
+    column_type& operator[](int i)
     {
-        return m_cells[index];
+        return this->m_cells[i];
     }
 
-    column_type operator[](int index) const
+    const column_type& operator[](int i) const
     {
-        return m_cells[index];
+        return this->m_cells[i];
     }
 
 private:
     column_type m_cells[3];
-
-    friend const T* buffer<>(const mat<3, 3, T>& mat);
 };
 
 typedef mat<3, 3, float>        mat3;
