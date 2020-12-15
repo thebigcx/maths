@@ -8,7 +8,7 @@ namespace math
 {
 
 template<int width, int height, typename T>
-static std::string str(const mat<width, height, T>& matrix)
+static std::string to_string(const mat<width, height, T>& matrix)
 {
     std::string s;
     for (unsigned int x = 0 ; x < width ; x++)

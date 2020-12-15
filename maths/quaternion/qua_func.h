@@ -7,6 +7,12 @@ namespace math
 {
 
 template<typename T>
+qua<T> identity()
+{
+    return qua<T>(static_cast<T>(1), static_cast<T>(0), static_cast<T>(0), static_cast<T>(0));
+}
+
+template<typename T>
 qua<T> normalize(const qua<T>& q)
 {
     qua<T> r = q;
