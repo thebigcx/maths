@@ -7,22 +7,6 @@ namespace math
 {
 
 template<typename T>
-vec<3, T> operator*(const qua<T>& q, const vec<3, T>& v)
-{
-    vec<3, T> quatVector(q.x, q.y, q.z);
-    vec<3, T> uv(cross(quatVector, v));
-    vec<3, T> uuv(cross(quatVector, uv));
-
-    return v + ((uv * q.w) + uuv) * static_cast<T>(2);
-}
-
-template<typename T>
-vec<3, T> operator*(const vec<3, T>& v, const qua<T>& q)
-{
-    return inverse(q) * v;
-}
-
-template<typename T>
 qua<T> normalize(const qua<T>& q)
 {
     qua<T> r = q;
@@ -99,7 +83,7 @@ vec<4, T> rotate(const qua<T>& q, const vec<4, T>& v)
 }
 
 template<typename T>
-mat<3, 3, T> mat3_cast(const qua<T>& q)
+mat<3, 3, T> to_mat3(const qua<T>& q)
 {
     mat<3, 3, T> result(static_cast<T>(1));
 
@@ -129,7 +113,7 @@ mat<3, 3, T> mat3_cast(const qua<T>& q)
 }
 
 template<typename T>
-mat<4, 4, T> mat4_cast(const qua<T>& q)
+mat<4, 4, T> to_mat4(const qua<T>& q)
 {
     return mat<4, 4, T>(mat3_cast(q));
 }

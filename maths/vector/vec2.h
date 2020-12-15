@@ -16,8 +16,8 @@ public:
     {
     }
 
-    vec<2, T>(T x, T y)
-        : x(x), y(y)
+    vec<2, T>(T _x, T _y)
+        : x(_x), y(_y)
     {
     }
 
@@ -26,111 +26,216 @@ public:
     {
     }
 
-    vec<2, T> operator+(const vec<2, T>& val) const
+    template<typename U>
+    vec<2, T>(const vec<3, U>& v)
+        : x(static_cast<T>(v.x)), y(static_cast<T>(v.y)) {}
+
+    template<typename U>
+    vec<2, T>(const vec<4, U>& v)
+        : x(static_cast<T>(v.x)), y(static_cast<T>(v.y)) {}
+
+    template<typename U>
+    vec<2, T>(const vec<2, U>& v)
+        : x(static_cast<T>(v.x)), y(static_cast<T>(v.y)) {}
+
+    template<typename A, typename B>
+    vec<2, T>(const A& a, const B& b)
+        : x(static_cast<T>(a)), y(static_cast<T>(b)) {}
+
+    T& operator[](int index)
     {
-        return vec<2, T>(x + val.x, y + val.y);
+        switch (index)
+        {
+            case 0: return x;
+            case 1: return y;
+            default: return 0;
+        }
     }
 
-    vec<2, T> operator+(const T& num) const
+    const T& operator[](int index) const
     {
-        return vec<2, T>(x + num, y + num);
+        switch (index)
+        {
+            case 0: return x;
+            case 1: return y;
+            default: return 0;
+        }
     }
 
-    vec<2, T> operator-(const vec<2, T>& val) const
+    vec<2, T>& operator=(const vec<2, T>& v)
     {
-        return vec<2, T>(x - val.x, y - val.y);
-    }
-
-    vec<2, T> operator-(const T& num) const
-    {
-        return vec<2, T>(x - num, y - num);
-    }
-
-    vec<2, T> operator*(const vec<2, T>& val) const
-    {
-        return vec<2, T>(x * val.x, y * val.y);
-    }
-
-    vec<2, T> operator*(const T& scl) const
-    {
-        return vec<2, T>(x * scl, y * scl);
-    }
-
-    vec<2, T> operator/(const vec<2, T>& val) const
-    {
-        return vec<2, T>(x / val.x, y / val.y);
-    }
-
-    vec<2, T> operator/(const T& scl) const
-    {
-        return vec<2, T>(x / scl, y / scl);
-    }
-
-    vec<2, T>& operator+=(const vec<2, T>& val)
-    {
-        *this = *this + val;
+        x = v.x;
+        y = v.y;
         return *this;
     }
 
-    vec<2, T>& operator+=(const T& num)
+    // Conversion
+    template<typename U>
+    vec<2, T>& operator=(const vec<2, U>& v)
     {
-        x = x + num;
-        y = y + num;
+        x = static_cast<T>(v.x);
+        y = static_cast<T>(v.y);
+    }
+
+    vec<2, T>& operator+=(const vec<2, T>& v)
+    {
+        *this = *this + v;
         return *this;
     }
 
-    vec<2, T>& operator-=(const vec<2, T>& val)
+    vec<2, T>& operator+=(const T& n)
     {
-        *this = *this - val;
+        *this = *this + n;
         return *this;
     }
 
-    vec<2, T>& operator-=(const T& num)
+    vec<2, T>& operator-=(const vec<2, T>& v)
     {
-        x = x - num;
-        y = y - num;
+        *this = *this - v;
         return *this;
     }
 
-    vec<2, T>& operator*=(const vec<2, T>& val)
+    vec<2, T>& operator-=(const T& n)
     {
-        *this = *this * val;
+        *this = *this - n;
         return *this;
     }
 
-    vec<2, T>& operator*=(const T& scl)
+    vec<2, T>& operator*=(const vec<2, T>& v)
     {
-        x = x * scl;
-        y = y * scl;
+        *this = *this * v;
         return *this;
     }
 
-    vec<2, T>& operator/=(const vec<2, T>& val)
+    vec<2, T>& operator*=(const T& s)
     {
-        *this = *this / val;
+        *this = *this * s;
         return *this;
     }
 
-    vec<2, T>& operator/=(const T& scl)
+    vec<2, T>& operator/=(const vec<2, T>& v)
     {
-        x = x / scl;
-        y = y / scl;
+        *this = *this / v;
         return *this;
     }
-    
-    bool operator==(const vec<2, T>& val)
+
+    vec<2, T>& operator/=(const T& s)
     {
-        return x == val.x && y == val.y;
+        *this = *this * s;
+        return *this;
     }
 
-    bool operator!=(const vec<2, T>& val)
+    vec<2, T>& operator++()
     {
-        return !operator==(val);
+        x++; y++;
+        return *this;
+    }
+
+    vec<2, T>& operator--()
+    {
+        x--; y--;
+        return *this;
     }
 
     union { T x, r, s; };
     union { T y, g, t; };
 };
+
+template<typename T>
+vec<2, T> operator+(const vec<2, T>& v)
+{
+    return v;
+}
+
+template<typename T>
+vec<2, T> operator-(const vec<2, T>& v)
+{
+    return vec<2, T>(-v.x, -v.y);
+}
+
+template<typename T>
+bool operator==(const vec<2, T>& v1, const vec<2, T>& v2)
+{
+    return v1.x == v2.x && v1.y == v2.y;
+}
+
+template<typename T>
+bool operator!=(const vec<2, T>& v1, const vec<2, T>& v2)
+{
+    return v1.x != v2.x || v1.y != v2.y;
+}
+
+template<typename T>
+vec<2, T> operator+(const vec<2, T>& v1, const vec<2, T>& v2)
+{
+    return vec<2, T>(v1.x + v2.x, v1.y + v2.y);
+}
+
+template<typename T>
+vec<2, T> operator+(const vec<2, T>& v, const T& s)
+{
+    return vec<2, T>(v.x + s, v.y + s);
+}
+
+template<typename T>
+vec<2, T> operator+(const T& s, const vec<2, T>& v)
+{
+    return v + s;
+}
+
+template<typename T>
+vec<2, T> operator-(const vec<2, T>& v1, const vec<2, T>& v2)
+{
+    return vec<2, T>(v1.x - v2.x, v1.y - v2.y);
+}
+
+template<typename T>
+vec<2, T> operator-(const vec<2, T>& v, const T& s)
+{
+    return vec<2, T>(v.x - s, v.y - s);
+}
+
+template<typename T>
+vec<2, T> operator-(const T& s, const vec<2, T>& v)
+{
+    return v - s;
+}
+
+template<typename T>
+vec<2, T> operator*(const vec<2, T>& v1, const vec<2, T>& v2)
+{
+    return vec<2, T>(v1.x * v2.x, v1.y * v2.y);
+}
+
+template<typename T>
+vec<2, T> operator*(const vec<2, T>& v, const T& s)
+{
+    return vec<2, T>(v.x * s, v.y * s);
+}
+
+template<typename T>
+vec<2, T> operator*(const T& s, const vec<2, T>& v)
+{
+    return v * s;
+}
+
+template<typename T>
+vec<2, T> operator/(const vec<2, T>& v1, const vec<2, T>& v2)
+{
+    return vec<2, T>(v1.x / v2.x, v1.y / v2.y);
+}
+
+template<typename T>
+vec<2, T> operator/(const vec<2, T>& v, const T& s)
+{
+    return vec<2, T>(v.x / s, v.y / s);
+}
+
+template<typename T>
+vec<2, T> operator/(const T& s, const vec<2, T>& v)
+{
+    return v / s;
+}
 
 typedef vec<2, float>        vec2;
 typedef vec<2, int>          ivec2;
