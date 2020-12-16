@@ -5,7 +5,7 @@
 namespace math
 {
 
-template<int width, int height, typename T>
+/*template<int width, int height, typename T>
 mat<width, height, T> identity()
 {
     mat<width, height, T> matrix;
@@ -14,10 +14,42 @@ mat<width, height, T> identity()
     for (unsigned int y = 0; y < height; y++)
     {
         if (x == y)
+        {
             matrix[x][y] = static_cast<T>(1);
+        }
     }
 
     return matrix;
+}*/
+
+template<int w, int h>
+mat<w, h, float> identity()
+{
+    return mat<w, h, float>(1.f);
+}
+
+template<int w, int h>
+mat<w, h, double> identity()
+{
+    return mat<w, h, double>(1.d);
+}
+
+template<int w, int h>
+mat<w, h, int> identity()
+{
+    return mat<w, h, int>(1);
+}
+
+template<int w, int h>
+mat<w, h, unsigned int> identity()
+{
+    return mat<w, h, unsigned int>(1);
+}
+
+template<int w, int h>
+mat<w, h, long> identity()
+{
+    return mat<w, h, long>(1);
 }
 
 template<typename T>
@@ -51,7 +83,7 @@ mat<4, 4, T> rotate(const mat<4, 4, T>& matrix, T angle, const vec<3, T>& axis)
 
     T c = math::cos(angle);
     T s = math::sin(angle);
-    T omc = 1.f - c;
+    T omc = static_cast<T>(1) - c;
 
     T x = axis.x;
     T y = axis.y;
@@ -105,7 +137,7 @@ mat<4, 4, T> perspective(T fovy, T aspect, T zNear, T zFar)
 template<typename T>
 mat<4, 4, T> lookAt(const vec<3, T>& pos, const vec<3, T>& object, const vec<3, T>& up)
 {
-    mat<4, 4, T> result(1.f);
+    mat<4, 4, T> result(static_cast<T>(1));
 
     vec<3, T> f = math::normalize(object - pos);
     vec<3, T> s = math::normalize(math::cross(f, up));
