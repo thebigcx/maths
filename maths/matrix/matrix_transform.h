@@ -53,53 +53,61 @@ mat<w, h, long> identity()
 }
 
 template<typename T>
-mat<4, 4, T> translate(const mat<4, 4, T>& matrix, const vec<3, T>& vec)
+mat<4, 4, T> translate(const mat<4, 4, T>& m, const vec<3, T>& v)
 {
-    mat<4, 4, T> result = matrix;
+    mat<4, 4, T> result = m;
 
-    result[3][0] += vec.x * matrix[0][0];
-    result[3][1] += vec.y * matrix[1][1];
-    result[3][2] += vec.z * matrix[2][2];
+    result[3][0] += v.x * m[0][0];
+    result[3][1] += v.y * m[1][1];
+    result[3][2] += v.z * m[2][2];
 
     return result;
 }
 
 template<typename T>
-mat<4, 4, T> scale(const mat<4, 4, T>& matrix, const vec<3, T>& scalar)
+mat<4, 4, T> scale(const mat<4, 4, T>& m, const vec<3, T>& s)
 {
-    mat<4, 4, T> result = matrix;
+    mat<4, 4, T> result = m;
 
-    result[0] *= vec<4, T>(scalar, static_cast<T>(1));
-    result[1] *= vec<4, T>(scalar, static_cast<T>(1));
-    result[2] *= vec<4, T>(scalar, static_cast<T>(1));
+    result[0] *= vec<4, T>(s, static_cast<T>(1));
+    result[1] *= vec<4, T>(s, static_cast<T>(1));
+    result[2] *= vec<4, T>(s, static_cast<T>(1));
 
     return result;
 }
 
 template<typename T>
-mat<4, 4, T> rotate(const mat<4, 4, T>& matrix, T angle, const vec<3, T>& axis)
+mat<4, 4, T> rotate(const mat<4, 4, T>& m, T angle, const vec<3, T>& v)
 {
-    mat<4, 4, T> result = matrix;
+    mat<4, 4, T> rotate = m;
 
     T c = math::cos(angle);
     T s = math::sin(angle);
     T omc = static_cast<T>(1) - c;
 
+    vec<3, T> axis(normalize(v));
+
     T x = axis.x;
     T y = axis.y;
     T z = axis.z;
 
-    result[0][0] = x * x * omc + c;
-    result[0][1] = y * x * omc + z * s;
-    result[0][2] = x * z * omc - y * s;
+    rotate[0][0] = x * x * omc + c;
+    rotate[0][1] = y * x * omc + z * s;
+    rotate[0][2] = x * z * omc - y * s;
 
-    result[1][0] = x * y * omc - z * s;
-    result[1][1] = y * y * omc + c;
-    result[1][2] = y * z * omc + x * s;
+    rotate[1][0] = x * y * omc - z * s;
+    rotate[1][1] = y * y * omc + c;
+    rotate[1][2] = y * z * omc + x * s;
 
-    result[2][0] = x * z * omc + y * s;
-    result[2][1] = y * z * omc - x * s;
-    result[2][2] = z * z * omc + c;
+    rotate[2][0] = x * z * omc + y * s;
+    rotate[2][1] = y * z * omc - x * s;
+    rotate[2][2] = z * z * omc + c;
+
+    mat<4, 4, T> result;
+    result[0] = m[0] * rotate[0][0] + m[1] * rotate[0][1] + m[2] * rotate[0][2];
+    result[1] = m[0] * rotate[1][0] + m[1] * rotate[1][1] + m[2] * rotate[1][2];
+    result[2] = m[0] * rotate[2][0] + m[1] * rotate[2][1] + m[2] * rotate[2][2];
+    result[3] = m[3];
 
     return result;
 }
@@ -163,20 +171,20 @@ mat<4, 4, T> lookAt(const vec<3, T>& pos, const vec<3, T>& object, const vec<3, 
 }
 
 template<typename T>
-static mat<3, 3, T> translate(const mat<3, 3, T>& val, const vec<2, T>& vector)
+static mat<3, 3, T> translate(const mat<3, 3, T>& m, const vec<2, T>& v)
 {
-    mat<3, 3, T> result = val;
+    mat<3, 3, T> result = m;
 
-    result[2][0] += vector.x * result[0][0];
-    result[2][1] += vector.y * result[1][1];
+    result[2][0] += v.x * result[0][0];
+    result[2][1] += v.y * result[1][1];
 
     return result;
 }
 
 template<typename T>
-static mat<3, 3, T> rotate(const mat<3, 3, T>& val, T angle)
+static mat<3, 3, T> rotate(const mat<3, 3, T>& m, T angle)
 {
-    mat<3, 3, T> result = val;
+    mat<3, 3, T> result = m;
 
     result[0][0] *= math::cos(angle);
     result[1][0] *= -math::sin(angle);
@@ -187,12 +195,12 @@ static mat<3, 3, T> rotate(const mat<3, 3, T>& val, T angle)
 }
 
 template<typename T>
-static mat<3, 3, T> scale(const mat<3, 3, T>& matrix, const vec<2, T>& scalar)
+static mat<3, 3, T> scale(const mat<3, 3, T>& m, const vec<2, T>& s)
 {
-    mat<3, 3, T> result = matrix;
+    mat<3, 3, T> result = m;
 
-    result[0] *= vec<3, T>(scalar, 1);
-    result[1] *= vec<3, T>(scalar, 1);
+    result[0] *= vec<3, T>(s, 1);
+    result[1] *= vec<3, T>(s, 1);
 
     return result;
 }
