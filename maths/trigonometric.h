@@ -34,9 +34,21 @@ static constexpr double sin(double x)
     return std::sin(x);
 }
 
+template<typename T>
+vec<3, T> sin(const vec<3, T>& v)
+{
+    return vec<3, T>(math::sin(v.x), math::sin(v.y), math::sin(v.z));
+}
+
 static constexpr double cos(double x)
 {
     return std::cos(x);
+}
+
+template<typename T>
+vec<3, T> cos(const vec<3, T>& v)
+{
+    return vec<3, T>(math::cos(v.x), math::cos(v.y), math::cos(v.z));
 }
 
 static constexpr double tan(double x)

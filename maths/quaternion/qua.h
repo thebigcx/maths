@@ -16,6 +16,17 @@ public:
 
     qua(T _w, T _x, T _y, T _z)
         : w(_w), x(_x), y(_y), z(_z) {}
+
+    qua(const vec<3, T>& eulerAngle)
+    {
+        vec<3, T> c = math::cos(eulerAngle * T(0.5));
+        vec<3, T> s = math::sin(eulerAngle * T(0.5));
+
+        this->w = c.x * c.y * c.z + s.x * s.y * s.z;
+		this->x = s.x * c.y * c.z - c.x * s.y * s.z;
+		this->y = c.x * s.y * c.z + s.x * c.y * s.z;
+		this->z = c.x * c.y * s.z - s.x * s.y * c.z;
+    }
     
     qua& operator=(const qua& q)
     {
