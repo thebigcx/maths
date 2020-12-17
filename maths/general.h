@@ -5,24 +5,24 @@
 namespace math
 {
 
-static constexpr double map(double value, double istart, double istop, double ostart, double ostop) noexcept
+static constexpr double map(double x, double min1, double max1, double min2, double max2) noexcept
 {
-    return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
+    return min2 + (max2 - min2) * ((x - min1) / (max1 - min1));
 }
 
-static constexpr double clamp(double value, double min, double max) noexcept
+static constexpr double clamp(double x, double min, double max) noexcept
 {
-    if (value < min)
+    if (x < min)
     {
         return min;
     }
 
-    if (value > max)
+    if (x > max)
     {
         return max;
     }
 
-    return value;
+    return x;
 }
 
 static constexpr double max(double a, double b) noexcept
@@ -35,14 +35,18 @@ static constexpr double min(double a, double b) noexcept
     return a < b ? a : b;
 }
 
-static constexpr double sqrt(double val) noexcept
+static constexpr double sqrt(double x) noexcept
 {
-    return std::sqrt(val);
+    return std::sqrt(x);
 }
 
-static constexpr double abs(double val) noexcept
+static constexpr double abs(double x) noexcept
 {
-    return std::abs(val);
+    if (x < 0)
+    {
+        return x * -1;
+    }
+    return x;
 }
 
 } // namespace math

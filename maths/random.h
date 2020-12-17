@@ -9,12 +9,12 @@ namespace math
 namespace random
 {
 
-static void initSeed()
+static void init_seed()
 {
     std::srand(std::time(nullptr));
 }
 
-static double generate(int min, int max)
+static double generate(double min, double max)
 {
     double f = (double)std::rand() / RAND_MAX;
     return min + f * (max - min);
