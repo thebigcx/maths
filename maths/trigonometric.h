@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+#include "vector/vec.h"
+
 namespace math
 {
 
@@ -10,9 +12,21 @@ static constexpr double radians(float deg)
     return deg * static_cast<float>(0.01745329251994329576923690768489);
 }
 
+template<typename T>
+static vec<3, T> radians(const vec<3, T>& v)
+{
+    return vec<3, T>(radians(v.x), radians(v.y), radians(v.z));
+}
+
 static constexpr int degrees(float rad)
 {
     return rad * static_cast<float>(57.295779513082320876798154814105);
+}
+
+template<typename T>
+static vec<3, T> degrees(const vec<3, T>& v)
+{
+    return vec<3, T>(degrees(v.x), degrees(v.y), degrees(v.z));
 }
 
 static constexpr double sin(double x)

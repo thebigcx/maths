@@ -63,7 +63,7 @@ static float dot(const vec<3, T>& first, const vec<3, T>& second)
 }
 
 template<typename T>
-static std::string str(const vec<3, T>& val)
+static std::string to_string(const vec<3, T>& val)
 {
     return "(" + std::to_string(val.x) + ", " + std::to_string(val.y) + ", " + std::to_string(val.z) + ")";
 }
@@ -74,6 +74,20 @@ template<typename T>
 static std::string to_string(const vec<4, T>& val)
 {
     return "(" + std::to_string(val.x) + ", " + std::to_string(val.y) + ", " + std::to_string(val.z) + ", " + std::to_string(val.w) + ")";
+}
+
+// ------------------------------other-------------------------------
+
+template<typename T>
+static vec<3, T> scale(const vec<3, T>& v, const T& s)
+{
+    return v * s / length(v);
+}
+
+template<unsigned int L, typename T>
+static T length(const vec<L, T>& v)
+{
+    return sqrt(dot(v, v));
 }
 
 } // namespace math

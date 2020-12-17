@@ -1,26 +1,11 @@
 #pragma once
 
 #include "mat4x4.h"
+#include "../epsilon.h"
+#include "../vector/vec_func.h"
 
 namespace math
 {
-
-/*template<int width, int height, typename T>
-mat<width, height, T> identity()
-{
-    mat<width, height, T> matrix;
-        
-    for (unsigned int x = 0; x < width; x++)
-    for (unsigned int y = 0; y < height; y++)
-    {
-        if (x == y)
-        {
-            matrix[x][y] = static_cast<T>(1);
-        }
-    }
-
-    return matrix;
-}*/
 
 template<int w, int h>
 mat<w, h, float> identity()
@@ -203,6 +188,58 @@ static mat<3, 3, T> scale(const mat<3, 3, T>& m, const vec<2, T>& s)
     result[1] *= vec<3, T>(s, 1);
 
     return result;
+}
+
+template<typename T>
+static void decompose_transform(const mat<4, 4, T>& transform, vec<3, T>& translation, vec<3, T>& rotation, vec<3, T>& scale)
+{
+    mat<4, 4, T> local_matrix(transform);
+
+    if (epsilon_equal(local_matrix[3][3], static_cast<T>(0), epsilon<T>()))
+    {
+        return;
+    }
+
+    if (
+        epsilon_not_equal(local_matrix[0][3], static_cast<T>(0), epsilon<T>()) ||
+        epsilon_not_equal(local_matrix[1][3], static_cast<T>(0), epsilon<T>()) ||
+        epsilon_not_equal(local_matrix[2][3], static_cast<T>(0), epsilon<T>())
+    )
+    {
+        local_matrix[0][3] = local_matrix[1][3] = local_matrix[2][3] = static_cast<T>(0);
+        local_matrix[3][3] = static_cast<T>(1);
+    }
+
+    translation = vec<3, T>(local_matrix[3]);
+    local_matrix[3] = vec<4, T>(static_cast<T>(0), static_cast<T>(0), static_cast<T>(0), local_matrix[3].w);
+
+    vec<3, T> row[3];
+
+    for (unsigned int x = 0; x < 3; x++)
+    for (unsigned int y = 0; y < 3; y++)
+    {
+        row[x][y] = local_matrix[x][y];
+    }
+
+    scale.x = length(row[0]);
+    row[0] = math::scale(row[0], static_cast<T>(1));
+    scale.y = length(row[1]);
+    row[1] = math::scale(row[1], static_cast<T>(1));
+    scale.z = length(row[2]);
+    row[2] = math::scale(row[2], static_cast<T>(1));
+
+    rotation.y = asin(-row[0][2]);
+    if (cos(rotation.y) != 0)
+    {
+        rotation.x = atan2(row[1][2], row[2][2]);
+        rotation.z = atan2(row[0][1], row[0][0]);
+    }
+    else
+    {
+        rotation.x = atan2(-row[2][0], row[1][1]);
+        rotation.z = static_cast<T>(0);
+    }
+    
 }
 
 }
