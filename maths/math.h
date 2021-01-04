@@ -23,6 +23,7 @@
 #include "matrix/mat4x3.h"
 #include "matrix/mat4x4.h"
 #include "matrix/matrix_transform.h"
+#include "matrix/matrix_func.h"
 
 #include "rect/rect.h"
 #include "rect/rect_func.h"

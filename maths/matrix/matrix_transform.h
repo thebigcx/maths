@@ -10,31 +10,31 @@ namespace math
 template<int w, int h>
 mat<w, h, float> identity()
 {
-    return mat<w, h, float>(1.f);
+    return mat<w, h, float>(static_cast<float>(1));
 }
 
 template<int w, int h>
 mat<w, h, double> identity()
 {
-    return mat<w, h, double>(1.d);
+    return mat<w, h, double>(static_cast<double>(1));
 }
 
 template<int w, int h>
 mat<w, h, int> identity()
 {
-    return mat<w, h, int>(1);
+    return mat<w, h, int>(static_cast<int>(1));
 }
 
 template<int w, int h>
 mat<w, h, unsigned int> identity()
 {
-    return mat<w, h, unsigned int>(1);
+    return mat<w, h, unsigned int>(static_cast<unsigned int>(1));
 }
 
 template<int w, int h>
 mat<w, h, long> identity()
 {
-    return mat<w, h, long>(1);
+    return mat<w, h, long>(static_cast<long>(1));
 }
 
 template<typename T>

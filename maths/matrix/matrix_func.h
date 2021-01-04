@@ -25,7 +25,7 @@ static std::string to_string(const mat<width, height, T>& matrix)
 }
 
 template<typename T>
-static math::mat4 inverse(const math::mat4& m)
+static mat<4, 4, T> inverse(const mat<4, 4, T>& m)
 {
     T coef00 = m[2][2] * m[3][3] - m[3][2] * m[2][3];
     T coef02 = m[1][2] * m[3][3] - m[3][2] * m[1][3];
