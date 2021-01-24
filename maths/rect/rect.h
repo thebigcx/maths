@@ -16,7 +16,7 @@ public:
 		: x(_x), y(_y), w(_w), h(_h) {}
 
 	rect(const math::vec<2, T>& pos, const math::vec<2, T>& size)
-		: x(pos.x), y(pos.y), w(size.x), w(size.y) {}
+		: x(pos.x), y(pos.y), w(size.x), h(size.y) {}
 
 	math::vec<2, T> position() const
 	{

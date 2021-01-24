@@ -84,10 +84,71 @@ static vec<3, T> scale(const vec<3, T>& v, const T& s)
     return v * s / length(v);
 }
 
-template<unsigned int L, typename T>
+template<length_t L, typename T>
 static T length(const vec<L, T>& v)
 {
     return sqrt(dot(v, v));
+}
+
+// other
+
+template<length_t L, typename T>
+static vec<L, T> max(const vec<L, T>& a, const vec<L, T>& b)
+{
+    vec<L, T> result;
+    for (length_t i = 0; i < L; i++)
+    {
+        result[i] = a[i] > b[i] ? a[i] : b[i];
+    }
+
+    return result;
+}
+
+template<length_t L, typename T>
+static vec<L, T> min(const vec<L, T>& a, const vec<L, T>& b)
+{
+    vec<L, T> result;
+    for (length_t i = 0; i < L; i++)
+    {
+        result[i] = a[i] < b[i] ? a[i] : b[i];
+    }
+
+    return result;
+}
+
+template<length_t L, typename T>
+static T max(const vec<L, T>& v)
+{
+    T maxVal = v[0];
+
+    for (length_t i = 0; i < L; i++)
+    {
+        if (v[i] > maxVal)
+        {
+            maxVal = v[i];
+        }
+    }
+
+    return maxVal;
+}
+
+template<typename T>
+static vec<2, T> reflect(const vec<2, T>& i, const vec<2, T>& n)
+{
+    return i - (n * (dot(i, n) * 2.f));
+}
+
+template<length_t L, typename T>
+static T dist(const vec<L, T>& a, const vec<L, T>& b)
+{
+    T r = static_cast<T>(0);
+
+    for (length_t i = 0; i < L; i++)
+    {
+        r += b[i] - a[i];
+    }
+
+    return sqrt(abs(r));
 }
 
 } // namespace math

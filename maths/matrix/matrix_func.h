@@ -7,13 +7,13 @@
 namespace math
 {
 
-template<int width, int height, typename T>
-static std::string to_string(const mat<width, height, T>& matrix)
+template<length_t W, length_t H, typename T>
+static std::string to_string(const mat<W, H, T>& matrix)
 {
     std::string s;
-    for (unsigned int x = 0 ; x < width ; x++)
+    for (length_t x = 0 ; x < W ; x++)
     {
-        for (unsigned int y = 0 ; y < height ; y++)
+        for (length_t y = 0 ; y < H ; y++)
         {
             s.append(std::to_string(matrix[y][x]));
             s.append(", ");

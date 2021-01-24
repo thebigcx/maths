@@ -3,7 +3,7 @@
 namespace math
 {
 
-template<int width, int height, typename T>
+template<length_t W, length_t H, typename T>
 class mat;
 
 }

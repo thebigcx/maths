@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ostream>
+#include <cassert>
 
 #include "vec.h"
 
@@ -11,54 +12,56 @@ template<typename T>
 class vec<2, T>
 {
 public:
-    vec<2, T>()
+    constexpr vec<2, T>()
         : x(0), y(0)
     {
     }
 
-    vec<2, T>(T _x, T _y)
+    constexpr vec<2, T>(T _x, T _y)
         : x(_x), y(_y)
     {
     }
 
-    vec<2, T>(T v)
+    constexpr vec<2, T>(T v)
         : x(v), y(v)
     {
     }
 
     template<typename U>
-    vec<2, T>(const vec<3, U>& v)
+    constexpr vec<2, T>(const vec<3, U>& v)
         : x(static_cast<T>(v.x)), y(static_cast<T>(v.y)) {}
 
     template<typename U>
-    vec<2, T>(const vec<4, U>& v)
+    constexpr vec<2, T>(const vec<4, U>& v)
         : x(static_cast<T>(v.x)), y(static_cast<T>(v.y)) {}
 
     template<typename U>
-    vec<2, T>(const vec<2, U>& v)
+    constexpr vec<2, T>(const vec<2, U>& v)
         : x(static_cast<T>(v.x)), y(static_cast<T>(v.y)) {}
 
     template<typename A, typename B>
-    vec<2, T>(const A& a, const B& b)
+    constexpr vec<2, T>(const A& a, const B& b)
         : x(static_cast<T>(a)), y(static_cast<T>(b)) {}
 
-    T& operator[](int index)
+    T& operator[](length_t index)
     {
+        assert(index >= 0 && index < 2);
         switch (index)
         {
             case 0: return x;
             case 1: return y;
-            default: return 0;
+            default: return x;
         }
     }
 
-    const T& operator[](int index) const
+    const T& operator[](length_t index) const
     {
+        assert(index >= 0 && index < 2);
         switch (index)
         {
             case 0: return x;
             case 1: return y;
-            default: return 0;
+            default: return x;
         }
     }
 

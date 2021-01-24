@@ -1,9 +1,11 @@
 #pragma once
 
+#include "../common.h"
+
 namespace math
 {
 
-template<unsigned int length, typename T>
+template<length_t L, typename T>
 class vec;
 
 }

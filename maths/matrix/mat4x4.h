@@ -1,7 +1,8 @@
 #pragma once
 
 #include <cmath>
-#include <iostream>
+#include <cassert>
+#include <cstring>
 
 #include "../vector/vec3.h"
 #include "../vector/vec4.h"
@@ -47,15 +48,19 @@ public:
                    { m02, m12, m22, m32 }, 
                    { m30, m31, m32, m33 } } {}
 
-    column_type& operator[](int i)
+    column_type& operator[](length_t i)
     {
+        assert(i < 4);
         return this->m_cells[i];
     }
 
-    const column_type& operator[](int i) const
+    const column_type& operator[](length_t i) const
     {
+        assert(i < 4);
         return this->m_cells[i];
     }
+
+    mat<4, 4, T>& operator=(const mat<4, 4, T>& m);
 
 private:
     column_type m_cells[4];
@@ -77,13 +82,19 @@ mat<4, 4, T> operator*(const mat<4, 4, T>& m, const T& s)
 template<typename T>
 vec<3, T> operator*(const mat<4, 4, T>& m, const vec<3, T>& v)
 {
-    vec<3, T> result;
+    /*vec<3, T> result;
 
     result.x = m[0][0] * v[0] + m[1][0] * v[1] + m[2][0] * v[2];
     result.y = m[0][1] * v[0] + m[1][1] * v[1] + m[2][1] * v[2];
-    result.z = m[0][2] * v[0] + m[1][2] * v[1] + m[2][2] * v[2];
+    result.z = m[0][2] * v[0] + m[1][2] * v[1] + m[2][2] * v[2];*/
 
-    return result;
+    return vec<3, T>(
+        m[0][0] * v[0] + m[1][0] * v[1] + m[2][0] * v[2],
+        m[0][1] * v[0] + m[1][1] * v[1] + m[2][1] * v[2],
+        m[0][2] * v[0] + m[1][2] * v[1] + m[2][2] * v[2]
+    );
+
+    //return result;
 }
 
 template<typename T>
@@ -110,6 +121,13 @@ vec<4, T> operator*(const mat<4, 4, T>& m, const vec<4, T>& v)
     result.w = m[0][3] * v[0] + m[1][3] * v[1] + m[2][3] * v[2] + m[3][3] * v[3];
 
     return result;
+}
+
+template<typename T>
+mat<4, 4, T>& mat<4, 4, T>::operator=(const mat<4, 4, T>& m)
+{
+    memcpy(&m_cells, &m.m_cells, 16 * sizeof(T));
+    return *this;
 }
 
 typedef mat<4, 4, float>        mat4;

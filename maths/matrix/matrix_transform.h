@@ -7,34 +7,34 @@
 namespace math
 {
 
-template<int w, int h>
-mat<w, h, float> identity()
+template<length_t W, length_t H>
+mat<W, H, float> identity()
 {
-    return mat<w, h, float>(static_cast<float>(1));
+    return mat<W, H, float>(static_cast<float>(1));
 }
 
-template<int w, int h>
-mat<w, h, double> identity()
+template<length_t W, length_t H>
+mat<W, H, double> identity()
 {
-    return mat<w, h, double>(static_cast<double>(1));
+    return mat<W, H, double>(static_cast<double>(1));
 }
 
-template<int w, int h>
-mat<w, h, int> identity()
+template<length_t W, length_t H>
+mat<W, H, int> identity()
 {
-    return mat<w, h, int>(static_cast<int>(1));
+    return mat<W, H, int>(static_cast<int>(1));
 }
 
-template<int w, int h>
-mat<w, h, unsigned int> identity()
+template<length_t W, length_t H>
+mat<W, H, unsigned int> identity()
 {
-    return mat<w, h, unsigned int>(static_cast<unsigned int>(1));
+    return mat<W, H, unsigned int>(static_cast<unsigned int>(1));
 }
 
-template<int w, int h>
-mat<w, h, long> identity()
+template<length_t W, length_t H>
+mat<W, H, long> identity()
 {
-    return mat<w, h, long>(static_cast<long>(1));
+    return mat<W, H, long>(static_cast<long>(1));
 }
 
 template<typename T>

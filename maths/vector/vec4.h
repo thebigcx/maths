@@ -130,7 +130,7 @@ public:
         return *this;
     }
 
-    T& operator[](int index)
+    T& operator[](length_t index)
     {
         switch (index)
         {
@@ -142,7 +142,7 @@ public:
         }
     }
 
-    T operator[](int index) const
+    T operator[](length_t index) const
     {
         switch (index)
         {
